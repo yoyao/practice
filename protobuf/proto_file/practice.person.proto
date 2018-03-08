@@ -1,0 +1,9 @@
+syntax = "proto3";
+package practice;
+message Person
+{
+	int32 age=1;
+	string name=2;
+	int32 sex=3;
+	string address=4;
+};
