@@ -68,7 +68,8 @@ int main(int argc,char *argv[])
 
 	practice::Person person;
 	person.set_age(25);
-
+    person.set_address("new york");
+    person.set_name("Tom");
 
 	return 0;
 }
