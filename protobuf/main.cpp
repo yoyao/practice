@@ -7,9 +7,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <pthread.h>
+#include <thread>
 
 using namespace practice;
 using namespace std;
+
+int FormatSockaddr(struct sockaddr* paddr,char *stringbuf,int size);
 
 int main(int argc,char *argv[])
 {
@@ -64,6 +68,8 @@ int main(int argc,char *argv[])
 			std::cout<<"accept error\n";
 			return 0;
 		}
+
+
 	}
 
 	practice::Person person;
@@ -74,5 +80,12 @@ int main(int argc,char *argv[])
 	return 0;
 }
 
-
+int FormatSockaddr(struct sockaddr* paddr,char *stringbuf,int size)
+{
+   struct sockaddr_in *paddrin=(struct sockaddr_in*)paddr;
+   int port=ntohs(paddrin->sin_port);
+   char buf[20]={0};
+   inet_ntop(AF_INET,&(paddrin->sin_addr),buf,sizeof(buf));
+   sprintf(stringbuf,"%s:%d",buf,port);
+}
 
