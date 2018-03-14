@@ -7,25 +7,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-<<<<<<< HEAD:protobuf/main.cpp
 #include <pthread.h>
-=======
->>>>>>> job-dev:protobuf/protobuf_serv.cpp
 #include <thread>
 
 using namespace practice;
 using namespace std;
 
-<<<<<<< HEAD:protobuf/main.cpp
 int FormatSockaddr(struct sockaddr* paddr,char *stringbuf,int size);
-=======
 typedef struct _client {
 	int fd;
 	struct sockaddr_in addr;
 } Client;
 
 void* OnConnect(void *arg);
->>>>>>> job-dev:protobuf/protobuf_serv.cpp
 
 int main(int argc,char *argv[])
 {
@@ -52,7 +46,7 @@ int main(int argc,char *argv[])
 	local.sin_addr.s_addr=htonl(INADDR_ANY);
 
 	int flag=1;
-    setsockopt(SOL_SOCKET,SO_REUSEADDR,&flat);//地址复用
+    setsockopt(lsfd,SOL_SOCKET,SO_REUSEADDR,&flag,sizeof(flag));//地址复用
 
 	ret=bind(lsfd,(struct sockaddr*)&local,sizeof(local));
 	if(ret!=0)
@@ -81,16 +75,12 @@ int main(int argc,char *argv[])
 			std::cout<<"accept error\n";
 			return 0;
 		}
-<<<<<<< HEAD:protobuf/main.cpp
 
-
-=======
 		Client *pclient=new Client;
 		pclient->fd=cli_fd;
 		pclient->addr=client;
 		std::thread t1(OnConnect,pclient);
 		t1.detach();
->>>>>>> job-dev:protobuf/protobuf_serv.cpp
 	}
 
 	practice::Person person;
@@ -101,14 +91,6 @@ int main(int argc,char *argv[])
 	return 0;
 }
 
-int FormatSockaddr(struct sockaddr* paddr,char *stringbuf,int size)
-{
-   struct sockaddr_in *paddrin=(struct sockaddr_in*)paddr;
-   int port=ntohs(paddrin->sin_port);
-   char buf[20]={0};
-   inet_ntop(AF_INET,&(paddrin->sin_addr),buf,sizeof(buf));
-   sprintf(stringbuf,"%s:%d",buf,port);
-}
 
 int FormattSockAddr(struct sockaddr *addr,char *strbuf,size_t slen)
 {
@@ -118,6 +100,11 @@ int FormattSockAddr(struct sockaddr *addr,char *strbuf,size_t slen)
 	}
 	char buf[32]={0};
 	struct sockaddr_in *paddrin=reinterpret_cast<struct sockaddr_in*>(addr);
+	if(paddrin==NULL)
+	{
+		std::cout<<"  FormattSockAddr ";
+		std::cout<<"cast sockaddr failed"<<std::endl;
+	}
 	inet_ntop(AF_INET,&(paddrin->sin_addr),buf,sizeof(buf));
 	int port=0;
 	port=ntohs(paddrin->sin_port);
