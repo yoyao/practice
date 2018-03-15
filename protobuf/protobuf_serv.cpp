@@ -46,8 +46,12 @@ int main(int argc,char *argv[])
 	local.sin_addr.s_addr=htonl(INADDR_ANY);
 
 	int flag=1;
-    setsockopt(lsfd,SOL_SOCKET,SO_REUSEADDR,&flag,sizeof(flag));//地址复用
-
+	ret=setsockopt(lsfd,SOL_SOCKET,SO_REUSEADDR,&flag,sizeof(flag));//地址复用
+	if(ret !=0 )
+	{
+		std::cout<<"reuse address failed\n";
+		return 0;
+	}
 	ret=bind(lsfd,(struct sockaddr*)&local,sizeof(local));
 	if(ret!=0)
 	{
@@ -68,7 +72,7 @@ int main(int argc,char *argv[])
 	while(1)
 	{
 		int cli_fd=0;
-		socklen_t clen=0;
+		socklen_t clen=sizeof(client);
 		cli_fd=accept(lsfd,(struct sockaddr*)&client,&clen);
 		if(cli_fd<0)
 		{
@@ -82,12 +86,12 @@ int main(int argc,char *argv[])
 		std::thread t1(OnConnect,pclient);
 		t1.detach();
 	}
-
+/*
 	practice::Person person;
 	person.set_age(25);
 	person.set_address("new york");
 	person.set_name("Tom");
-
+*/
 	return 0;
 }
 
@@ -104,6 +108,7 @@ int FormattSockAddr(struct sockaddr *addr,char *strbuf,size_t slen)
 	{
 		std::cout<<"  FormattSockAddr ";
 		std::cout<<"cast sockaddr failed"<<std::endl;
+		return 1;
 	}
 	inet_ntop(AF_INET,&(paddrin->sin_addr),buf,sizeof(buf));
 	int port=0;
@@ -126,7 +131,30 @@ void* OnConnect(void *arg)
 	FormattSockAddr(reinterpret_cast<struct sockaddr*>(&pclient->addr),addrstr,sizeof(addrstr));
 	std::cout<<"client "<<addrstr<<" connected\n";
 
+	int ret=0;
+	char buff[1024]={0};
+	std::string message="";
 
+	while(1)
+	{
+		ret=recv(pclient->fd,buff,sizeof(buff),0);
+		if(ret<1)
+		{
+			std::cout<<"client:"<<addrstr<<" disconnected\n";
+			break;
+		}
+		practice::Person person;
+		bool issuc=person.ParseFromArray(message.c_str(),message.length());
+		if(!issuc)
+		{
+			std::cout<<"Person convert failed"<<std::endl;
+			continue;
+		}
+
+		std::cout<<"recv message from "<<addrstr<<":";
+		std::cout<<"person address:"<<person.address()<<std::endl;
+		memset(buff,0,ret);
+	}
 	close(pclient->fd);
 	delete (pclient);
 	return NULL;
