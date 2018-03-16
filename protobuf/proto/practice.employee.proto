@@ -1,0 +1,51 @@
+syntax="proto3";
+
+package practice;
+
+//部门
+enum Department
+{
+   NetworkDept=0;//网络部
+   MarketDept=1;//市场部
+FinanceDept=2;//财务部
+}
+
+//职位
+enum JobTitle
+{
+	Staffer=0;//职员
+	Leader=1;//组长
+	Director=2;//总监
+}
+
+message Employee
+{
+	int32 id=1;//id
+	double salary=2;//薪水
+	string empno=3;//工号
+    Department dept=4;//部门
+	JobTitle jobtitle=5;//职位
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

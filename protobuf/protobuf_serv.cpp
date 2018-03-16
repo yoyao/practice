@@ -144,14 +144,14 @@ void* OnConnect(void *arg)
 			break;
 		}
 		practice::Person person;
-		bool issuc=person.ParseFromArray(message.c_str(),message.length());
+		bool issuc=person.ParseFromArray(buff,ret);
 		if(!issuc)
 		{
 			std::cout<<"Person convert failed"<<std::endl;
 			continue;
 		}
 
-		std::cout<<"recv message from "<<addrstr<<":";
+		printf("recv %d bytes message from %s\n",ret,addrstr);
 		std::cout<<"person address:"<<person.address()<<std::endl;
 		memset(buff,0,ret);
 	}
