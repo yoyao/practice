@@ -1,5 +1,5 @@
 #include <iostream>
-#include "proto/practice.person.pb.h"
+#include "src/practice.person.pb.h"
 #include <fstream>
 #include <unistd.h>
 #include <sys/types.h>
@@ -153,6 +153,7 @@ void* OnConnect(void *arg)
 
 		printf("recv %d bytes message from %s\n",ret,addrstr);
 		std::cout<<"person address:"<<person.address()<<std::endl;
+		std::cout<<"person phone number:"<<person.phone().phonenumber()<<std::endl;
 		memset(buff,0,ret);
 	}
 	close(pclient->fd);
