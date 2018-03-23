@@ -14,6 +14,7 @@ using namespace practice;
 using namespace std;
 
 int FormatSockaddr(struct sockaddr* paddr,char *stringbuf,int size);
+
 typedef struct _client {
 	int fd;
 	struct sockaddr_in addr;
