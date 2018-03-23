@@ -35,6 +35,7 @@ void InitDefaultsPersonImpl() {
 #else
   ::google::protobuf::internal::InitProtobufDefaults();
 #endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  protobuf_practice_2ephone_2eproto::InitDefaultsPhone();
   {
     void* ptr = &::practice::_Person_default_instance_;
     new (ptr) ::practice::Person();
@@ -60,6 +61,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::practice::Person, name_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::practice::Person, sex_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::practice::Person, address_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::practice::Person, phone_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::practice::Person)},
@@ -91,14 +93,17 @@ void protobuf_RegisterTypes(const ::std::string&) {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-      "\n\025practice.person.proto\022\010practice\"A\n\006Per"
-      "son\022\013\n\003age\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\013\n\003sex\030\003 "
-      "\001(\005\022\017\n\007address\030\004 \001(\tb\006proto3"
+      "\n\025practice.person.proto\022\010practice\032\024pract"
+      "ice.phone.proto\"a\n\006Person\022\013\n\003age\030\001 \001(\005\022\014"
+      "\n\004name\030\002 \001(\t\022\013\n\003sex\030\003 \001(\005\022\017\n\007address\030\004 \001"
+      "(\t\022\036\n\005phone\030\005 \001(\0132\017.practice.Phoneb\006prot"
+      "o3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 108);
+      descriptor, 162);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "practice.person.proto", &protobuf_RegisterTypes);
+  ::protobuf_practice_2ephone_2eproto::AddDescriptors();
 }
 
 void AddDescriptors() {
@@ -117,12 +122,21 @@ namespace practice {
 // ===================================================================
 
 void Person::InitAsDefaultInstance() {
+  ::practice::_Person_default_instance_._instance.get_mutable()->phone_ = const_cast< ::practice::Phone*>(
+      ::practice::Phone::internal_default_instance());
+}
+void Person::clear_phone() {
+  if (GetArenaNoVirtual() == NULL && phone_ != NULL) {
+    delete phone_;
+  }
+  phone_ = NULL;
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Person::kAgeFieldNumber;
 const int Person::kNameFieldNumber;
 const int Person::kSexFieldNumber;
 const int Person::kAddressFieldNumber;
+const int Person::kPhoneFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Person::Person()
@@ -146,6 +160,11 @@ Person::Person(const Person& from)
   if (from.address().size() > 0) {
     address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
   }
+  if (from.has_phone()) {
+    phone_ = new ::practice::Phone(*from.phone_);
+  } else {
+    phone_ = NULL;
+  }
   ::memcpy(&age_, &from.age_,
     static_cast<size_t>(reinterpret_cast<char*>(&sex_) -
     reinterpret_cast<char*>(&age_)) + sizeof(sex_));
@@ -155,9 +174,9 @@ Person::Person(const Person& from)
 void Person::SharedCtor() {
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&age_, 0, static_cast<size_t>(
+  ::memset(&phone_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&sex_) -
-      reinterpret_cast<char*>(&age_)) + sizeof(sex_));
+      reinterpret_cast<char*>(&phone_)) + sizeof(sex_));
   _cached_size_ = 0;
 }
 
@@ -169,6 +188,7 @@ Person::~Person() {
 void Person::SharedDtor() {
   name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   address_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete phone_;
 }
 
 void Person::SetCachedSize(int size) const {
@@ -195,6 +215,10 @@ void Person::Clear() {
 
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() == NULL && phone_ != NULL) {
+    delete phone_;
+  }
+  phone_ = NULL;
   ::memset(&age_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&sex_) -
       reinterpret_cast<char*>(&age_)) + sizeof(sex_));
@@ -271,6 +295,18 @@ bool Person::MergePartialFromCodedStream(
         break;
       }
 
+      // .practice.Phone phone = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_phone()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -327,6 +363,12 @@ void Person::SerializeWithCachedSizes(
       4, this->address(), output);
   }
 
+  // .practice.Phone phone = 5;
+  if (this->has_phone()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, *phone_, output);
+  }
+
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
@@ -373,6 +415,13 @@ void Person::SerializeWithCachedSizes(
         4, this->address(), target);
   }
 
+  // .practice.Phone phone = 5;
+  if (this->has_phone()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        5, *phone_, deterministic, target);
+  }
+
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
@@ -402,6 +451,13 @@ size_t Person::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->address());
+  }
+
+  // .practice.Phone phone = 5;
+  if (this->has_phone()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *phone_);
   }
 
   // int32 age = 1;
@@ -455,6 +511,9 @@ void Person::MergeFrom(const Person& from) {
 
     address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
   }
+  if (from.has_phone()) {
+    mutable_phone()->::practice::Phone::MergeFrom(from.phone());
+  }
   if (from.age() != 0) {
     set_age(from.age());
   }
@@ -489,6 +548,7 @@ void Person::InternalSwap(Person* other) {
   using std::swap;
   name_.Swap(&other->name_);
   address_.Swap(&other->address_);
+  swap(phone_, other->phone_);
   swap(age_, other->age_);
   swap(sex_, other->sex_);
   _internal_metadata_.Swap(&other->_internal_metadata_);

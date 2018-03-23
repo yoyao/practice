@@ -1,0 +1,20 @@
+syntax="proto3";
+
+package practice;
+//运营商
+enum ServiceProvider
+{
+	ChinaMobile=0;//中国移动
+	ChinaUnicom=1;//中古联通
+	ChinaTelecom=2;//中国电信
+}
+
+
+message Phone
+{
+  int32 id=1;
+  string phonenumber=2;
+ServiceProvider provider=3;
+int32 area_code=4;//区号
+
+}

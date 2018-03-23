@@ -29,6 +29,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
+#include "practice.phone.pb.h"
 // @@protoc_insertion_point(includes)
 
 namespace protobuf_practice_2eperson_2eproto {
@@ -176,6 +177,15 @@ class Person : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   ::std::string* release_address();
   void set_allocated_address(::std::string* address);
 
+  // .practice.Phone phone = 5;
+  bool has_phone() const;
+  void clear_phone();
+  static const int kPhoneFieldNumber = 5;
+  const ::practice::Phone& phone() const;
+  ::practice::Phone* release_phone();
+  ::practice::Phone* mutable_phone();
+  void set_allocated_phone(::practice::Phone* phone);
+
   // int32 age = 1;
   void clear_age();
   static const int kAgeFieldNumber = 1;
@@ -194,6 +204,7 @@ class Person : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::internal::ArenaStringPtr address_;
+  ::practice::Phone* phone_;
   ::google::protobuf::int32 age_;
   ::google::protobuf::int32 sex_;
   mutable int _cached_size_;
@@ -343,6 +354,51 @@ inline void Person::set_allocated_address(::std::string* address) {
   }
   address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
   // @@protoc_insertion_point(field_set_allocated:practice.Person.address)
+}
+
+// .practice.Phone phone = 5;
+inline bool Person::has_phone() const {
+  return this != internal_default_instance() && phone_ != NULL;
+}
+inline const ::practice::Phone& Person::phone() const {
+  const ::practice::Phone* p = phone_;
+  // @@protoc_insertion_point(field_get:practice.Person.phone)
+  return p != NULL ? *p : *reinterpret_cast<const ::practice::Phone*>(
+      &::practice::_Phone_default_instance_);
+}
+inline ::practice::Phone* Person::release_phone() {
+  // @@protoc_insertion_point(field_release:practice.Person.phone)
+  
+  ::practice::Phone* temp = phone_;
+  phone_ = NULL;
+  return temp;
+}
+inline ::practice::Phone* Person::mutable_phone() {
+  
+  if (phone_ == NULL) {
+    phone_ = ::google::protobuf::Arena::Create< ::practice::Phone >(
+        GetArenaNoVirtual());
+  }
+  // @@protoc_insertion_point(field_mutable:practice.Person.phone)
+  return phone_;
+}
+inline void Person::set_allocated_phone(::practice::Phone* phone) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete reinterpret_cast< ::google::protobuf::MessageLite*>(phone_);
+  }
+  if (phone) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      phone = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, phone, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  phone_ = phone;
+  // @@protoc_insertion_point(field_set_allocated:practice.Person.phone)
 }
 
 #ifdef __GNUC__
