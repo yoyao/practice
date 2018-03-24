@@ -46,6 +46,8 @@ int main(int argc,char *argv[])
         AmqpClient::Envelope::ptr_t penvelope;
         penvelope =pchannel->BasicConsumeMessage(consumer_tag);
 
+        std::string message=  penvelope->Message()->Body();
+        std::cout<<"recv message:"<<message<<std::endl;
     }
     catch(std::exception &ex)
     {
