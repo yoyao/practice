@@ -42,12 +42,13 @@ int main(int argc,char *argv[])
 
         pchannel->DeclareQueue(queue,true,true);
 
-        std::string consumer_tag = pchannel->BasicConsume(queue,"",false,false,false);
+        std::string consumer_tag = pchannel->BasicConsume(queue,"",true,true,false);
         AmqpClient::Envelope::ptr_t penvelope;
         penvelope =pchannel->BasicConsumeMessage(consumer_tag);
-
+//收到了信息
         std::string message=  penvelope->Message()->Body();
         std::cout<<"recv message:"<<message<<std::endl;
+        pchannel->BasicAck(penvelope);
     }
     catch(std::exception &ex)
     {
@@ -56,8 +57,6 @@ int main(int argc,char *argv[])
         std::cout<<std::endl;
         return 0;
     }
-
-    std::cout<<"sent message:"<<msg<<std::endl;
 
     return 0;
 }

@@ -36,23 +36,24 @@ int main(int argc,char *argv[])
     std::string msg("hello world");
     std::string queue="direct_queue";
 
-      try
-      {
-          AmqpClient::Channel::ptr_t pchannel=AmqpClient::Channel::Create(host,port,user,pwd,vhost);
+    try
+    {
+        AmqpClient::Channel::ptr_t pchannel=AmqpClient::Channel::Create(host,port,user,pwd,vhost);
 
-          pchannel->DeclareQueue(queue,true,true);
-          pchannel->BasicPublish(exchange,route_key,AmqpClient::BasicMessage::Create(msg));
+        pchannel->DeclareQueue(queue,true,true);
+        AmqpClient::BasicMessage::ptr_t pmsg=AmqpClient::BasicMessage::Create(msg);
+        pchannel->BasicPublish(exchange,route_key,AmqpClient::BasicMessage::Create(msg));
 
-      }
-      catch(std::exception &ex)
-      {
-          std::cout<<"exception happend:\n";
-          std::cout<<ex.what();
-          std::cout<<std::endl;
-          return 0;
-      }
+    }
+    catch(std::exception &ex)
+    {
+        std::cout<<"exception happend:\n";
+        std::cout<<ex.what();
+        std::cout<<std::endl;
+        return 0;
+    }
 
-      std::cout<<"sent message:"<<msg<<std::endl;
+    std::cout<<"sent message:"<<msg<<std::endl;
 
-      return 0;
+    return 0;
 }

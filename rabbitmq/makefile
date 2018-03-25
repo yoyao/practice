@@ -1,6 +1,6 @@
 cppfiles=$(wildcard ./*.cpp)
 objfiles=$(patsubst %.cpp,%.o,$(cppfiles))
-
+cppfiles=./rabbitmq_client.cpp
 target=rbmq_client.out
 
 CXX=g++
