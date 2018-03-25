@@ -1,7 +1,7 @@
 cppfiles=./rabbitmq_server.cpp
 objfiles=$(patsubst %.cpp,%.o,$(cppfiles))
 
-target=rbmq_client.out
+target=rbmq_server.out
 
 CXX=g++
 STD=-std=c++11

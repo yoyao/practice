@@ -28,7 +28,8 @@ int main(int argc,char *argv[])
 
     std::string exchange="direct_exchange";
     std::string route_key="yesok";
-    std::string host="47.93.50.121";
+    //std::string host="47.93.50.121";
+    std::string host="127.0.0.1";
     std::string user="admin";
     std::string pwd="123456";
     std::string vhost="vh_sweet";
