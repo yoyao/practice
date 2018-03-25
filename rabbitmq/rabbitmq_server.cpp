@@ -40,15 +40,19 @@ int main(int argc,char *argv[])
     {
         AmqpClient::Channel::ptr_t pchannel=AmqpClient::Channel::Create(host,port,user,pwd,vhost);
 
-        pchannel->DeclareQueue(queue,true,true);
+        pchannel->DeclareQueue(queue,false,false,false,false);
 
-        std::string consumer_tag = pchannel->BasicConsume(queue,"",true,true,false);
+        std::string consumer_tag = pchannel->BasicConsume(queue,"",true,true,true,1);
+		std::cout<<"\nStart recv message....\n";
+		while(1)
+		{
         AmqpClient::Envelope::ptr_t penvelope;
         penvelope =pchannel->BasicConsumeMessage(consumer_tag);
 
         std::string message=  penvelope->Message()->Body();
         std::cout<<"recv message:"<<message<<std::endl;
-        pchannel->BasicAck(penvelope);
+		}	
+        //pchannel->BasicAck(penvelope);
     }
     catch(std::exception &ex)
     {
