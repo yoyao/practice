@@ -28,18 +28,23 @@ int main(int argc,char *argv[])
 
     std::string exchange="direct_exchange";
     std::string route_key="yesok";
-    //std::string host="47.93.50.121";
-    std::string host="127.0.0.1";
+    std::string host="47.93.50.121";
+    //host="127.0.0.1";
     std::string user="admin";
     std::string pwd="123456";
     std::string vhost="vh_sweet";
-    short port=5672;
+    short port=5671;
     std::string msg("hello world");
     std::string queue="direct_queue";
+    std::string cacert_path="/home/fgo/program/cacert.pem";
+
+    std::string client_key_path="/home/fgo/program/rabbit-client.key.pem";
+    std::string client_cert_path="/home/fgo/program/rabbit-client.cert.pem";
 
     try
     {
-        AmqpClient::Channel::ptr_t pchannel=AmqpClient::Channel::Create(host,port,user,pwd,vhost);
+        //AmqpClient::Channel::ptr_t pchannel=AmqpClient::Channel::Create(host,port,user,pwd,vhost);
+         AmqpClient::Channel::ptr_t pchannel=AmqpClient::Channel::CreateSecure(cacert_path,host,client_key_path,client_cert_path,port,user,pwd,vhost);
 
         pchannel->DeclareQueue(queue,true,true);
         AmqpClient::BasicMessage::ptr_t pmsg=AmqpClient::BasicMessage::Create(msg);
