@@ -18,6 +18,7 @@ $(objfiles):$(cppfiles)
 	gcc -c $< -o $@  
 
 clean:
+	echo "this's server makefile"
 	rm -rf ./*.o
 
 .PHONY:clean all
