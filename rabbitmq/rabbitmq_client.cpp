@@ -105,10 +105,10 @@ int main(int argc,char *argv[])
     short port=5671;
     std::string msg("hello world");
     std::string queue="direct_queue";
-    std::string cacert_path="/home/fgo/program/ca-cert.pem";
+    std::string cacert_path="/home/fgo/program/ca.crt";
 
-    std::string client_key_path="/home/fgo/program/client-cert.pem";
-    std::string client_cert_path="/home/fgo/program/client-key.pem";
+    std::string client_key_path="/home/fgo/program/client-cert.crt";
+    std::string client_cert_path="/home/fgo/program/client-private.key";
 
     try
     {
