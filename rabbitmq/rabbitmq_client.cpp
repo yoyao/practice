@@ -22,6 +22,7 @@ using namespace AmqpClient;
 
 
 /*
+ *
 [fgo@ali-v-server project]$ openssl req -new -out client/client-req.csr -key client/client-key.pem
 You are about to be asked to enter information that will be incorporated
 into your certificate request.
@@ -93,6 +94,7 @@ int main(int argc,char *argv[])
     /*
      * 操作都是幂等的 即只有不存在的时候才会被创建
      */
+
 int main(int argc,char *argv[])
 {
     std::string exchange="direct_exchange";
@@ -105,8 +107,8 @@ int main(int argc,char *argv[])
     short port=5671;
     std::string msg("hello world");
     std::string queue="direct_queue";
-    std::string cacert_path="/home/fgo/project/certauth/ca.crt";
 
+    std::string cacert_path="/home/fgo/program/ca/ca.crt";
     std::string client_cert_path="/home/fgo/project/client/client.cert.crt";
     std::string client_key_path="/home/fgo/project/client/client-private.key";
 
