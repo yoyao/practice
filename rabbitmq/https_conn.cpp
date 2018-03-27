@@ -69,11 +69,11 @@ int main(int argc,char *argv[])
 
         /* 双向验证下面是客户端的ＣＡ*/
         // 配置 https 请求所需证书
-        curl_easy_setopt(curl,CURLOPT_CAINFO,"/home/fgo/program/ca/ca.crt");
-        curl_easy_setopt(curl, CURLOPT_SSLCERT, "/home/fgo/program/client/clientcert.pem");
+        curl_easy_setopt(curl,CURLOPT_CAINFO,"/home/fgo/project/certauth/ca.crt");
+        curl_easy_setopt(curl, CURLOPT_SSLCERT, "/home/fgo/project/client/client-cert.crt");
         curl_easy_setopt(curl,CURLOPT_SSLCERTTYPE,"PEM");
         curl_easy_setopt(curl,CURLOPT_SSLKEYPASSWD,"123456");
-        curl_easy_setopt(curl, CURLOPT_SSLKEY, "/home/fgo/program/client/client-private.key");
+        curl_easy_setopt(curl, CURLOPT_SSLKEY, "/home/fgo/project/client/client-private.key");
         curl_easy_setopt(curl,CURLOPT_SSLKEYTYPE,"PEM");
         curl_easy_setopt(curl, CURLOPT_KEYPASSWD, "123456");
 
