@@ -98,17 +98,17 @@ int main(int argc,char *argv[])
     std::string exchange="direct_exchange";
     std::string route_key="yesok";
     std::string host="47.93.50.121";
-    //host="127.0.0.1";
+    host="localhost";
     std::string user="admin";
     std::string pwd="123456";
     std::string vhost="vh_sweet";
     short port=5671;
     std::string msg("hello world");
     std::string queue="direct_queue";
-    std::string cacert_path="/home/fgo/program/ca.crt";
+    std::string cacert_path="/home/fgo/project/certauth/ca.crt";
 
-    std::string client_key_path="/home/fgo/program/client-cert.crt";
-    std::string client_cert_path="/home/fgo/program/client-private.key";
+    std::string client_cert_path="/home/fgo/project/client/client.cert.crt";
+    std::string client_key_path="/home/fgo/project/client/client-private.key";
 
     try
     {
