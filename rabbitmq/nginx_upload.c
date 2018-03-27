@@ -5,8 +5,6 @@
 #include <fastcgi.h>
 #include <fcgi_stdio.h>
 
-#include <fastdfs/fdfs_client.h>
-
 
 int main(int argc,char *argv[])
 {
