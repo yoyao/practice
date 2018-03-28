@@ -48,7 +48,7 @@ int main(int argc,char *argv[])
 		{
         AmqpClient::Envelope::ptr_t penvelope;
         penvelope =pchannel->BasicConsumeMessage(consumer_tag);
-//收到了信息
+        //收到了信息
         std::string message=  penvelope->Message()->Body();
         std::cout<<"recv message:"<<message<<std::endl;
 		}	
